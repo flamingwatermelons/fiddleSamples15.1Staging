@@ -36,7 +36,7 @@ $.ig.loader({
             sheet.getCell('A3').value(3224);
             sheet.getCell('B3').value('アーミン バリウォーター');
             sheet.getCell('C3').value('レビュー');
-            sheet.getCell('D3').value('引受会社は来週まで不在');
+            sheet.getCell('D3').value('保険業者は来週まで不在');
 
             sheet.getCell('A4').value(3225);
             sheet.getCell('B4').value('シエラ ドナヒュー');
