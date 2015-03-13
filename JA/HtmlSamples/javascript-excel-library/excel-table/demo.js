@@ -46,7 +46,7 @@ $.ig.loader({
             sheet.getCell('A5').value(3226);
             sheet.getCell('B5').value('ペリー ケイン');
             sheet.getCell('C5').value('保留中');
-            sheet.getCell('D5').value('顧客からの書類を待機中');
+            sheet.getCell('D5').value('顧客からの書類待ち');
 
             sheet.getCell('A6').value(3235);
             sheet.getCell('B6').value('ハビエア ファネロー');
