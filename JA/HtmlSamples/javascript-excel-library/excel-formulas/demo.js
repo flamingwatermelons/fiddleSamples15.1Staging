@@ -4,7 +4,7 @@ $.ig.loader({
             cssPath: "http://staging.igniteui.local/15-1/IgniteUI/css/",
             resources: 'modules/infragistics.util.js,' +
                        'modules/infragistics.documents.core.js,' +
-                       'modules/infragistics.excel.js,'
+                       'modules/infragistics.excel.js'
         });
      
 
