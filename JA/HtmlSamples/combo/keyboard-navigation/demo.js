@@ -31,15 +31,10 @@ $(function () {
                 }
             });
 
-            var opened = false;
-
             $("#tooltip").tooltip({
                 position: { of: ".ui-igcombo-buttonicon", my: "left+55 center", at: "right center" },
                 open: function (event, ui) {
-                    //if (!opened) {
                     $("#tooltip").tooltip("option", "content", getTip(tipIndex++));
-                    opened = true;
-                    //}
                 },
                 tooltipClass: "tooltipStyle"
             });
@@ -70,7 +65,7 @@ $(function () {
                     }
                 }
 
-                //Clear the input when Esc is selected
+                //Clear the input when Esc is pressed
                 if (e.keyCode == 27 && tipIndex == 5) {
                     showWellDoneMessage();
                 }
