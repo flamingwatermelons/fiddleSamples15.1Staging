@@ -104,9 +104,6 @@ $(function () {
                 renderExpansionIndicatorColumn: true,
                 features: [
                 {
-                    name: "Hiding"
-                },
-                {
                     name: "Sorting"
                 },
                 {
