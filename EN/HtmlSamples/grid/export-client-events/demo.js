@@ -35,7 +35,7 @@ $.ig.loader({
                         { headerText: "Product Number", key: "ProductNumber", dataType: "number", width: "200px" },
                         { headerText: "In Stock", key: "InStock", dataType: "bool", width: "150px" },
                         { headerText: "Quantity", key: "Quantity", dataType: "number", width: "150px" },
-                        { headerText: "Vendor website", key: "VendorWebsite", width: "220px", template: '<a href="${VendorWebsite}">${VendorWebsite}</a>' },
+                        { headerText: "Vendor website", key: "VendorWebsite", width: "220px", template: '<a href="${VendorWebsite}">${VendorWebsite}</a>' }
                     ],
                     dataSource: data,
                         width: "100%",
@@ -51,7 +51,7 @@ $.ig.loader({
                            name: "Paging",
                            type: "local",
                            pageSize: 10
-                       },
+                       }
                     ]
                 });
             });
@@ -60,7 +60,7 @@ $.ig.loader({
 		function exportGrid() {
 			$.ig.GridExcelExporter.export($("#grid"),
 				{
-				    fileName: "excel",
+				    fileName: "igGrid",
 				    gridFeatureOptions: { "sorting": "applied", "filtering": "applied", paging: "currentPage", "summaries": "applied" },
 				},
                 {
@@ -81,7 +81,7 @@ $.ig.loader({
 
                         if (args.columnKey == 'VendorWebsite') {
                             var xlRow = args.xlRow;
-                            xlRow.cells(args.columnIndex).applyFormula('=HYPERLINK("' + args.cellValue + '","' + args.cellValue + '")');
+                            xlRow.cells(args.columnIndex).applyFormula('=HYPERLINK("' + args.cellValue + '")');
                         }
                     },
 					rowExported: function (e, args) {

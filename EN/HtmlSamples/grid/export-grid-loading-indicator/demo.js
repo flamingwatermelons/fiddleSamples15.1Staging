@@ -47,9 +47,9 @@ $.ig.loader({
                         { headerText: "Product Name", key: "Name", dataType: "string", width: "250px" },
                         { headerText: "Product Number", key: "ProductNumber", dataType: "number", width: "200px" },
                         { headerText: "In Stock", key: "InStock", dataType: "bool", width: "150px" },
-                        { headerText: "Quantity", key: "Quantity", dataType: "number", width: "150px" },
+                        { headerText: "Quantity", key: "Quantity", dataType: "number", width: "150px" }
                     ],
-                    dataSource: data,
+                    dataSource: data
                 });
             });
 
