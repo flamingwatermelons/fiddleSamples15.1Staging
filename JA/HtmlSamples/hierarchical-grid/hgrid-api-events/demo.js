@@ -27,13 +27,11 @@ $(function () {
 
             function ApplyFilter(grid) {
                 var expr = $("#exprTextEditor").igTextEditor("value") ||
-                        $("#exprNumericEditor").igNumericEditor("value") ||
-                        $("#exprDateEditor").igDateEditor("value");
-
-                var condition = $("#conditionList").igCombo("option", "selectedItems")[0].value;
-                var columnDataSource = $("#filterColumn").igCombo("option", "dataSource");
-                var filterColumn = columnDataSource[$("#filterColumn").igCombo("option", "selectedItems")[0].index].column;
-
+                    $("#exprNumericEditor").igNumericEditor("value") ||
+                    $("#exprDateEditor").igDateEditor("value"),
+                  condition = $("#conditionList").igCombo("selectedItems")[0].data["cond"],
+                columnDataSource = $("#filterColumn").igCombo("option", "dataSource"),
+                filterColumn = $("#filterColumn").igCombo("selectedItems")[0].data.column;
                 if (expr !== null) {
                     grid.igGridFiltering("filter", ([{ fieldName: filterColumn, expr: expr, cond: condition }]));
                 } else {
@@ -243,7 +241,7 @@ $(function () {
             $("#filterColumn").igCombo({
                 width: "120px",
                 textKey: "text",
-                valueKey: "type",
+                valueKey: "column",
                 renderMatchItems: false,
                 dataSource: [
                     { text: "注文 ID", column: "OrderID", type: "number" },
@@ -261,21 +259,54 @@ $(function () {
                         nEditor = $("#exprNumericEditor"),
                         dEditor = $("#exprDateEditor"),
                         tEditor = $("#exprTextEditor");
-                    switch (args.items[0].value) {
+                    switch (args.items[0].data["type"]) {
                         case "number":
                             nEditor.igNumericEditor("show");
                             tEditor.igTextEditor("hide");
                             dEditor.igDateEditor("hide");
+
+                            $("#conditionList").igCombo("option", "dataSource", [
+                                { cond: "equals", text: $.ig.GridFiltering.locale.equalsLabel },
+                                { cond: "doesNotEqual", text: $.ig.GridFiltering.locale.doesNotEqualLabel },
+                                { cond: "lessThan", text: $.ig.GridFiltering.locale.lessThanLabel },
+                                { cond: "greaterThan", text: $.ig.GridFiltering.locale.greaterThanLabel }
+                            ]);
+
                             break;
                         case "date":
                             nEditor.igNumericEditor("hide");
                             tEditor.igTextEditor("hide");
                             dEditor.igDateEditor("show");
+
+                            $("#conditionList").igCombo("option", "dataSource", [
+                             { cond: "on", text: $.ig.GridFiltering.locale.onLabel },
+                             { cond: "notOn", text: $.ig.GridFiltering.locale.notOnLabel },
+                             { cond: "before", text: $.ig.GridFiltering.locale.beforeLabel },
+                             { cond: "after", text: $.ig.GridFiltering.locale.afterLabel },
+                             { cond: "today", text: $.ig.GridFiltering.locale.todayLabel },
+                             { cond: "yesterday", text: $.ig.GridFiltering.locale.yesterdayLabel },
+                             { cond: "lastMonth", text: $.ig.GridFiltering.locale.lastMonthLabel },
+                             { cond: "nextMonth", text: $.ig.GridFiltering.locale.nextMonthLabel },
+                             { cond: "thisMonth", text: $.ig.GridFiltering.locale.thisMonthLabel },
+                             { cond: "lastYear", text: $.ig.GridFiltering.locale.lastYearLabel },
+                             { cond: "thisYear", text: $.ig.GridFiltering.locale.thisYearLabel },
+                             { cond: "nextYear", text: $.ig.GridFiltering.locale.nextYearLabel }
+                            ]);
+
                             break;
                         case "string":
                             nEditor.igNumericEditor("hide");
                             tEditor.igTextEditor("show");
                             dEditor.igDateEditor("hide");
+
+                            $("#conditionList").igCombo("option", "dataSource", [
+                               { cond: "startsWith", text: $.ig.GridFiltering.locale.startsWithLabel },
+                               { cond: "endsWith", text: $.ig.GridFiltering.locale.endsWithLabel },
+                               { cond: "contains", text: $.ig.GridFiltering.locale.containsLabel },
+                               { cond: "doesNotContain", text: $.ig.GridFiltering.locale.doesNotContainLabel },
+                               { cond: "empty", text: $.ig.GridFiltering.locale.emptyNullText },
+                               { cond: "notEmpty", text: $.ig.GridFiltering.locale.notEmptyNullText }
+                            ]);
                             break;
                     }
                     // reset the editors
@@ -283,8 +314,8 @@ $(function () {
                     tEditor.igTextEditor("value", null);
                     dEditor.igDateEditor("value", null);
                     // select default condition
-                    $("#conditionList").igCombo("option", "selectedItems", [{ index: 0 }]);
-                    selText = $("#conditionList").igCombo("option", "selectedItems")[0].text;
+                    $("#conditionList").igCombo("index", 0);
+                    selText = $("#conditionList").igCombo("selectedItems")[0].data["text"];
                     nEditor.igNumericEditor("option", "nullText", selText);
                     tEditor.igTextEditor("option", "nullText", selText);
                     dEditor.igDateEditor("option", "nullText", selText);
@@ -296,40 +327,16 @@ $(function () {
                 textKey: "text",
                 valueKey: "cond",
                 renderMatchItems: false,
-                cascadingDataSources: {
-                    "number": [
-                        { cond: "equals", text: $.ig.GridFiltering.locale.equalsLabel },
-                        { cond: "doesNotEqual", text: $.ig.GridFiltering.locale.doesNotEqualLabel },
-                        { cond: "lessThan", text: $.ig.GridFiltering.locale.lessThanLabel },
-                        { cond: "greaterThan", text: $.ig.GridFiltering.locale.greaterThanLabel }
-                    ],
-                    "string": [
-                        { cond: "startsWith", text: $.ig.GridFiltering.locale.startsWithLabel },
-                        { cond: "endsWith", text: $.ig.GridFiltering.locale.endsWithLabel },
-                        { cond: "contains", text: $.ig.GridFiltering.locale.containsLabel },
-                        { cond: "doesNotContain", text: $.ig.GridFiltering.locale.doesNotContainLabel },
-                        { cond: "empty", text: $.ig.GridFiltering.locale.emptyNullText },
-                        { cond: "notEmpty", text: $.ig.GridFiltering.locale.notEmptyNullText }
-                    ],
-                    "date": [
-                        { cond: "on", text: $.ig.GridFiltering.locale.onLabel },
-                        { cond: "notOn", text: $.ig.GridFiltering.locale.notOnLabel },
-                        { cond: "before", text: $.ig.GridFiltering.locale.beforeLabel },
-                        { cond: "after", text: $.ig.GridFiltering.locale.afterLabel },
-                        { cond: "today", text: $.ig.GridFiltering.locale.todayLabel },
-                        { cond: "yesterday", text: $.ig.GridFiltering.locale.yesterdayLabel },
-                        { cond: "lastMonth", text: $.ig.GridFiltering.locale.lastMonthLabel },
-                        { cond: "nextMonth", text: $.ig.GridFiltering.locale.nextMonthLabel },
-                        { cond: "thisMonth", text: $.ig.GridFiltering.locale.thisMonthLabel },
-                        { cond: "lastYear", text: $.ig.GridFiltering.locale.lastYearLabel },
-                        { cond: "thisYear", text: $.ig.GridFiltering.locale.thisYearLabel },
-                        { cond: "nextYear", text: $.ig.GridFiltering.locale.nextYearLabel }
-                    ]
-                },
+                dataSource: [
+                       { cond: "equals", text: $.ig.GridFiltering.locale.equalsLabel },
+                       { cond: "doesNotEqual", text: $.ig.GridFiltering.locale.doesNotEqualLabel },
+                       { cond: "lessThan", text: $.ig.GridFiltering.locale.lessThanLabel },
+                       { cond: "greaterThan", text: $.ig.GridFiltering.locale.greaterThanLabel }
+                ],
                 parentCombo: "#filterColumn",
                 mode: "dropdown",
                 enableClearButton: false,
-                selectedItems: [{ index: 0 }],
+                initialSelectedItems: [{ index: 0 }],
                 selectionChanged: function (e, args) {
                     $("#exprTextEditor").igTextEditor("option", "nullText", args.items[0].text);
                     $("#exprNumericEditor").igNumericEditor("option", "nullText", args.items[0].text);
@@ -372,7 +379,7 @@ $(function () {
                 selectedItems: [{ index: 0 }],
                 selectionChanged: function (e, args) {
                     var grid = $(getChildGridIDSelector());
-                    var index = parseInt(args.items[0].value - 1);
+                    var index = parseInt(args.items[0].data["pIndex"] - 1);
                     ChangePageIndex(grid, index);
                 }
             });
@@ -388,11 +395,11 @@ $(function () {
                 ],
                 mode: "dropdown",
                 enableClearButton: false,
-                selectedItems: [{ index: 1 }],
+                initialSelectedItems: [{ index: 1 }],
                 selectionChanged: function (e, args) {               
                     var grid = $(getChildGridIDSelector());
 
-                    var pageSize = args.items[0].value;
+                    var pageSize = args.items[0].data["size"];
                     var totalRecords = grid.igGrid("option", "dataSource").results.length;
                     var totalNumberOfPages = totalRecords / pageSize + 1;
                     var sizeList = [];

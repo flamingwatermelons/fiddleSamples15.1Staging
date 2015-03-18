@@ -47,9 +47,9 @@ $.ig.loader({
                         { headerText: "製品名", key: "Name", dataType: "string", width: "250px" },
                         { headerText: "製品番号", key: "ProductNumber", dataType: "number", width: "200px" },
                         { headerText: "在庫", key: "InStock", dataType: "bool", width: "150px" },
-                        { headerText: "数量", key: "Quantity", dataType: "number", width: "150px" },
+                        { headerText: "数量", key: "Quantity", dataType: "number", width: "150px" }
                     ],
-                    dataSource: data,
+                    dataSource: data
                 });
             });
 
