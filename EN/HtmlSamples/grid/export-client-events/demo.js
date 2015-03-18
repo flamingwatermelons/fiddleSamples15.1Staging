@@ -87,7 +87,7 @@ $.ig.loader({
 					rowExported: function (e, args) {
 						if (args.xlRow.index() == args.grid.igGrid("allRows").length - 1) {
 						    //alert("");
-						    $('<div style="font-size:20px;">Last row exported, download starts !!</div>').insertBefore('#exportButton').delay(1000).fadeOut();
+						    $('<div style="font-size:20px;">Last row exported, download starts!!</div>').insertBefore('#exportButton').delay(1000).fadeOut();
 						}
 					}
                 });
