@@ -47,7 +47,6 @@ var dsCountry, dsCascTowns, dsCountryCascading,
 
             $("#comboCountry").igCombo({
                 textKey: "txtCountry",
-                selectedItems: [{ index: 1 }],
                 valueKey: "valCountry",
                 dataSource: dsCountry,
                 mode: "dropdown",
@@ -73,6 +72,12 @@ var dsCountry, dsCascTowns, dsCountryCascading,
                     $comboDistrict.igCombo("deselectAll", {}, true);
                     $comboDistrict.igCombo("option", "dataSource", filteredCascDistrict);
                     $comboDistrict.igCombo("dataBind");
+
+                    var disableChildCombo = filteredCascDistrict.length == 0;
+                    $comboDistrict.igCombo("option", "disabled", disableChildCombo);
+                },
+                itemsRendered: function (evt, ui) {
+                    ui.owner.deselectAll();
                 }
             });
 
@@ -80,6 +85,8 @@ var dsCountry, dsCascTowns, dsCountryCascading,
                 valueKey: "valDistrict",
                 textKey: "txtDistrict",
                 mode: "dropdown",
+                dataSource: [],
+                disabled: true,
                 selectionChanged: function (evt, ui) {
                     var filteredCascTown = [];
 
@@ -95,13 +102,17 @@ var dsCountry, dsCascTowns, dsCountryCascading,
                     $comboTown.igCombo("deselectAll");
                     $comboTown.igCombo("option", "dataSource", filteredCascTown);
                     $comboTown.igCombo("dataBind");
+
+                    var disableChildCombo = filteredCascTown.length == 0;
+                    $comboTown.igCombo("option", "disabled", disableChildCombo);
                 }
             });
 
             $("#comboTown").igCombo({
                 valueKey: "valTown",
                 textKey: "textTown",
-                mode: "dropdown"
+                mode: "dropdown",
+                disabled: true
             });
         });
 });
