@@ -26,6 +26,7 @@ $(function () {
                             [
                             {
                                 columnKey: "LastName",
+                                required: true,
                                 validatorOptions: { bodyAsParent: false, required: true, showIcon: true }
                             }]
                     }
