@@ -29,6 +29,7 @@ $(function () {
                 textKey: "ProductName",
                 valueKey: "ID",
                 virtualization: true,
+                autoComplete: true,
                 headerTemplate: "<div class='dropDownHeaderFooter'>Available Products</div>",
                 footerTemplate: "<div class='dropDownHeaderFooter'>Product Count: {0} / {3}</div>",
                 itemTemplate: "<div>${ProductName} (${QuantityPerUnit})</div>",
