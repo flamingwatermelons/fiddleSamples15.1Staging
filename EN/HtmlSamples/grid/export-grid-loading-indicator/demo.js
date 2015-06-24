@@ -2,19 +2,19 @@ $(function () {
 $.ig.loader({
             scriptPath: "http://staging.igniteui.local/15-1/IgniteUI/js/",
             cssPath: "http://staging.igniteui.local/15-1/IgniteUI/css/",
-            resources: 'modules/infragistics.util.js,' +
-                           'modules/infragistics.documents.core.js,' +
-                           'modules/infragistics.excel.js,' +
-                           'modules/infragistics.gridexcelexporter.js,' +
-                           'igGrid.Hiding,' +
-                           'igGrid.Filtering,' +
-                           'igGrid.Sorting,' +
-                           'igGrid.Paging,' +
-                           'igGrid.Summaries'
+            resources: 'igGrid,' +
+                'igGrid.Hiding,' +
+                'igGrid.Filtering,' +
+                'igGrid.Sorting,' +
+                'igGrid.Paging,' +
+                'igGrid.Summaries,' +
+                'modules/infragistics.documents.core.js,' +
+                'modules/infragistics.excel.js,' +
+                'modules/infragistics.gridexcelexporter.js'
         });
 
-            $.ig.loader(function() {
-                $(function() {
+        $.ig.loader(function () {
+            $(function () {
                 var data = [
                         { 'ProductID': 1, 'Name': 'Omnis ut illum nisi.', 'ProductNumber': 2973311236, "InStock": true, "Quantity": 56 },
                         { 'ProductID': 2, 'Name': 'Quis quibusdam qui.', 'ProductNumber': 5907101619, "InStock": false, "Quantity": 0 },
@@ -36,54 +36,54 @@ $.ig.loader({
                         { 'ProductID': 31, 'Name': 'Nihil magnam aut ut.', 'ProductNumber': 5652753011, "InStock": true, "Quantity": 41 },
                         { 'ProductID': 32, 'Name': 'Repellendus dolorum.', 'ProductNumber': 8807902556, "InStock": true, "Quantity": 10 },
                         { 'ProductID': 43, 'Name': 'Odit ut quo minus.', 'ProductNumber': 1083007847, "InStock": false, "Quantity": 0 }
-                    ];
+                ];
 
                 $("#grid").igGrid({
                     autoGenerateColumns: false,
                     width: "100%",
                     height: "350px",
                     columns: [
-                        { headerText: "Product ID", key: "ProductID", dataType: "number", width: "100px" },
-                        { headerText: "Product Name", key: "Name", dataType: "string", width: "250px" },
-                        { headerText: "Product Number", key: "ProductNumber", dataType: "number", width: "200px" },
-                        { headerText: "In Stock", key: "InStock", dataType: "bool", width: "150px" },
-                        { headerText: "Quantity", key: "Quantity", dataType: "number", width: "150px" }
+                        { headerText: "$$(ProductID)", key: "ProductID", dataType: "number", width: "100px" },
+                        { headerText: "$$(Name)", key: "Name", dataType: "string", width: "250px" },
+                        { headerText: "$$(ProductNumber)", key: "ProductNumber", dataType: "number", width: "200px" },
+                        { headerText: "$$(InStock)", key: "InStock", dataType: "bool", width: "150px" },
+                        { headerText: "$$(Quantity)", key: "Quantity", dataType: "number", width: "150px" }
                     ],
                     dataSource: data
                 });
             });
 
-                var exportingIndicator = $('<div>');
+            var exportingIndicator = $('<div>');
 
-                $('#exportButton').on('click', function() {
+            $('#exportButton').on('click', function () {
                 var gridExcelExporter = new $.ig.GridExcelExporter();
                 var $grid = $('#grid');
                 gridExcelExporter.export($grid, {
                     gridStyling: "applied",
                 }, {
-                        exportStarting: function(e, args) {
-                            showExportingIndicator(args.grid, exportingIndicator);
+                    exportStarting: function (e, args) {
+                        showExportingIndicator(args.grid, exportingIndicator);
                     },
-                        success: function() {
-                            hideExportingIndicator(exportingIndicator);
+                    success: function () {
+                        hideExportingIndicator(exportingIndicator);
                     },
                 });
             });
 
-                function showExportingIndicator(grid, exportingIndicator) {
-                    var $gridContainer = $('#' + grid.attr('id') + '_container');
+            function showExportingIndicator(grid, exportingIndicator) {
+                var $gridContainer = $('#' + grid.attr('id') + '_container');
 
-                    exportingIndicator.css({
-                        "width": $gridContainer.outerWidth(),
-                        "height": $gridContainer.outerHeight()
-                    }).html('<span class="exporting-text">Exporting...</span>');
-                    exportingIndicator.addClass("exporting-indicator");
+                exportingIndicator.css({
+                    "width": $gridContainer.outerWidth(),
+                    "height": $gridContainer.outerHeight()
+                }).html('<span class="exporting-text">$$(Exporting)</span>');
+                exportingIndicator.addClass("exporting-indicator");
 
-                    $gridContainer.append(exportingIndicator);
+                $gridContainer.append(exportingIndicator);
             }
 
-                function hideExportingIndicator(exportingIndicator) {
-                    exportingIndicator.remove();
+            function hideExportingIndicator(exportingIndicator) {
+                exportingIndicator.remove();
             }
         });
 });

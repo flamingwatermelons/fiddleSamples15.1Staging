@@ -1,19 +1,19 @@
 $(function () {
 $.ig.loader({
-        scriptPath: "http://staging.igniteui.local/15-1/IgniteUI/js/",
-        cssPath: "http://staging.igniteui.local/15-1/IgniteUI/css/",
-        resources: 'modules/infragistics.util.js,' +
-                       'modules/infragistics.documents.core.js,' +
-                       'modules/infragistics.excel.js,' +
-                    'modules/infragistics.gridexcelexporter.js,' +
-                       'igGrid.Hiding,' +
-                       'igGrid.Filtering,' +
-                       'igGrid.Sorting,' +
-                       'igGrid.Paging,' +
-                       'igGrid.Summaries' 
-    });
-            $.ig.loader(function() {
-                $(function() {
+            scriptPath: "http://staging.igniteui.local/15-1/IgniteUI/js/",
+            cssPath: "http://staging.igniteui.local/15-1/IgniteUI/css/",
+            resources: 'igGrid,' +
+                'igGrid.Hiding,' +
+                'igGrid.Filtering,' +
+                'igGrid.Sorting,' +
+                'igGrid.Paging,' +
+                'igGrid.Summaries,' +
+                'modules/infragistics.documents.core.js,' +
+                'modules/infragistics.excel.js,' +
+                'modules/infragistics.gridexcelexporter.js'
+        });
+        $.ig.loader(function () {
+            $(function () {
                 var data = [
                     { 'ProductID': 1, 'Name': 'Omnis ut illum nisi.', 'ProductNumber': 2973311236, "InStock": true, "Quantity": 56, VendorWebsite: 'http://infragistics.com/', },
                     { 'ProductID': 2, 'Name': 'Quis quibusdam qui.', 'ProductNumber': 5907101619, "InStock": false, "Quantity": 0, VendorWebsite: 'http://infragistics.com/', },
@@ -25,20 +25,20 @@ $.ig.loader({
                     { 'ProductID': 31, 'Name': 'Nihil magnam aut ut.', 'ProductNumber': 5652753011, "InStock": true, "Quantity": 41, VendorWebsite: 'http://infragistics.com/' },
                     { 'ProductID': 32, 'Name': 'Repellendus dolorum.', 'ProductNumber': 8807902556, "InStock": true, "Quantity": 10, VendorWebsite: 'http://infragistics.com/' },
                     { 'ProductID': 43, 'Name': 'Odit ut quo minus.', 'ProductNumber': 1083007847, "InStock": false, "Quantity": 0, VendorWebsite: 'http://infragistics.com/' }
-                    ];
+                ];
 
                 $("#grid").igGrid({
                     autoGenerateColumns: false,
                     columns: [
-                        { headerText: "Product ID", key: "ProductID", dataType: "number", width: "100px" },
-                        { headerText: "Product Name", key: "Name", dataType: "string", width: "250px" },
-                        { headerText: "Product Number", key: "ProductNumber", dataType: "number", width: "200px" },
-                        { headerText: "In Stock", key: "InStock", dataType: "bool", width: "150px" },
-                        { headerText: "Quantity", key: "Quantity", dataType: "number", width: "150px" },
-                        { headerText: "Vendor website", key: "VendorWebsite", width: "220px", template: '<a href="${VendorWebsite}">${VendorWebsite}</a>' }
+                        { headerText: "$$(ProductID)", key: "ProductID", dataType: "number", width: "100px" },
+                        { headerText: "$$(Name)", key: "Name", dataType: "string", width: "250px" },
+                        { headerText: "$$(ProductNumber)", key: "ProductNumber", dataType: "number", width: "200px" },
+                        { headerText: "$$(InStock)", key: "InStock", dataType: "bool", width: "150px" },
+                        { headerText: "$$(Quantity)", key: "Quantity", dataType: "number", width: "150px" },
+                        { headerText: "$$(Vendorwebsite)", key: "VendorWebsite", width: "220px", template: '<a href="${VendorWebsite}">${VendorWebsite}</a>' }
                     ],
                     dataSource: data,
-                        width: "100%",
+                    width: "100%",
                     primaryKey: "ProductID",
                     features: [
                        {
@@ -54,42 +54,42 @@ $.ig.loader({
                        }
                     ]
                 });
+
+                $("#exportButton").on("click", function () {
+                    $.ig.GridExcelExporter.export($("#grid"),
+                        {
+                            fileName: "igGrid",
+                            gridFeatureOptions: { "sorting": "applied", "filtering": "applied", paging: "currentPage", "summaries": "applied" },
+                        },
+                        {
+                            headerCellExported: function (e, args) {
+                                if (args.columnKey == "Quantity") {
+                                    args.xlRow.setCellValue(args.columnIndex, "$$(AvailableQuantity)");
+                                }
+                            },
+                            cellExporting: function (e, args) {
+                                if (args.columnKey == "Quantity" && args.cellValue > 15) {
+                                    args.xlRow.getCellFormat(args.columnIndex).font().bold(1);
+                                }
+                            },
+                            cellExported: function (e, args) {
+                                if (args.xlRow.index() == 0) {
+                                    return;
+                                }
+
+                                if (args.columnKey == 'VendorWebsite') {
+                                    var xlRow = args.xlRow;
+                                    xlRow.cells(args.columnIndex).applyFormula('=HYPERLINK("' + args.cellValue + '")');
+                                }
+                            },
+                            rowExported: function (e, args) {
+                                if (args.xlRow.index() == args.grid.igGrid("allRows").length - 1) {
+                                    $('<div style="font-size:20px;">$$(LastRowExported)</div>').insertBefore('#exportButton').delay(1000).fadeOut();
+                                }
+                            }
+                        });
+
+                });
             });
         });
-		
-		function exportGrid() {
-			$.ig.GridExcelExporter.export($("#grid"),
-				{
-				    fileName: "igGrid",
-				    gridFeatureOptions: { "sorting": "applied", "filtering": "applied", paging: "currentPage", "summaries": "applied" },
-				},
-                {
-                    headerCellExported: function(e, args) {
-                        if (args.columnKey == "Quantity") {
-							args.xlRow.setCellValue(args.columnIndex, "Available Quantity");
-						}
-					},
-                    cellExporting: function(e, args) {
-                        if (args.columnKey == "Quantity" && args.cellValue > 15) {
-                            args.xlRow.getCellFormat(args.columnIndex).font().bold(1);
-                        }
-                    },
-                    cellExported: function(e, args) {
-                        if (args.xlRow.index() == 0) {
-                            return;
-                        }
-
-                        if (args.columnKey == 'VendorWebsite') {
-                            var xlRow = args.xlRow;
-                            xlRow.cells(args.columnIndex).applyFormula('=HYPERLINK("' + args.cellValue + '")');
-                        }
-                    },
-					rowExported: function (e, args) {
-						if (args.xlRow.index() == args.grid.igGrid("allRows").length - 1) {
-						    //alert("");
-						    $('<div style="font-size:20px;">Last row exported, download starts!!</div>').insertBefore('#exportButton').delay(1000).fadeOut();
-						}
-					}
-                });
-		};
 });
