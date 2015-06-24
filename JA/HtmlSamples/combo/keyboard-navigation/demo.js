@@ -51,7 +51,7 @@ $(function () {
                     if (ddOpened) {
                         showWellDoneMessage();
                     } else {
-                        showMessage("Open the Drop Down first!");
+                        showMessage("ドロップダウンを開いてください。");
                     }
                 }
 
@@ -61,7 +61,7 @@ $(function () {
                     if (ddOpened) {
                         showWellDoneMessage();
                     } else {
-                        showMessage("Open the Drop Down first!");
+                        showMessage("ドロップダウンを開いてください。");
                     }
                 }
 
@@ -107,13 +107,13 @@ $(function () {
 
             function getTip(idx) {
                 var tips = [
-	"Press <b>Down arrow</b> to Open drop down if closed or Move to next item if opened",
-	"Press <b>Ctrl</b> + <b>End</b> to Move to very last item when Drop down is opened",
-	"Press <b>Ctrl</b> + <b>Home</b> to Move to very first item in drop down when Drop down is opened",
-	"Press <b>Up arrow</b> to Close drop down if opened or Move to previous item",
-	"Type some value, for example 'text' and Press <b>Esc key</b> to clear the content when there isn't selected item",
-	"While holding <b>Shift</b> + <b>Up/Down arrows</b> the active (highlighted) items will be changed, if you wamt to select them, just release <b>Shift key</b>",
-    "Press <b>Esc key</b> in order to close the drop down when item/items are selected",
+	"ドロップダウンが閉じたときに<b>下矢印</b>を押すとドロップダウンが開きます。開いたら次の項目に移動します。",
+	"ドロップダウンが開いているときに <b>Ctrl</b> + <b>End</b> キーを押すと最後の項目に移動します。",
+	"ドロップダウンが開いているときに <b>Ctrl</b> + <b>Home</b> キーを押すと最初の項目に移動します。",
+	"ドロップダウンが開いているときに<b>上矢印</b>を押すとドロップダウンは閉じます。または以前の項目に移動します。",
+	"選択されている項目がない場合に「テキスト」などの値を入力し、<b>Esc キー</b>を押すとコンテンツがクリアされます。",
+	"<b>Shift</b> + <b>上/下矢印</b> キーを押すと、アクティブ (強調表示) 項目が変更されます。アクティブ項目を選択するには <b>Shift</b> キーを離します。",
+    "項目が選択されているときにドロップダウンを閉じるには、<b>Esc キー</b>を押します。",
                 ];
 
                 return tips[idx];
