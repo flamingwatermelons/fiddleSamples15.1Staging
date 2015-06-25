@@ -30,12 +30,12 @@ $.ig.loader({
                 $("#grid").igGrid({
                     autoGenerateColumns: false,
                     columns: [
-                        { headerText: "$$(ProductID)", key: "ProductID", dataType: "number", width: "100px" },
-                        { headerText: "$$(Name)", key: "Name", dataType: "string", width: "250px" },
-                        { headerText: "$$(ProductNumber)", key: "ProductNumber", dataType: "number", width: "200px" },
-                        { headerText: "$$(InStock)", key: "InStock", dataType: "bool", width: "150px" },
-                        { headerText: "$$(Quantity)", key: "Quantity", dataType: "number", width: "150px" },
-                        { headerText: "$$(Vendorwebsite)", key: "VendorWebsite", width: "220px", template: '<a href="${VendorWebsite}">${VendorWebsite}</a>' }
+                        { headerText: "Product ID", key: "ProductID", dataType: "number", width: "100px" },
+                        { headerText: "Product Name", key: "Name", dataType: "string", width: "250px" },
+                        { headerText: "Product Number", key: "ProductNumber", dataType: "number", width: "200px" },
+                        { headerText: "In Stock", key: "InStock", dataType: "bool", width: "150px" },
+                        { headerText: "Quantity", key: "Quantity", dataType: "number", width: "150px" },
+                        { headerText: "Vendor website", key: "VendorWebsite", width: "220px", template: '<a href="${VendorWebsite}">${VendorWebsite}</a>' }
                     ],
                     dataSource: data,
                     width: "100%",

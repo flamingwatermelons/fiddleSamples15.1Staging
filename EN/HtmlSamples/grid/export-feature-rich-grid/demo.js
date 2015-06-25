@@ -33,11 +33,11 @@ $.ig.loader({
                     autoGenerateColumns: false,
                     width: "100%",
                     columns: [
-                        { key: "ProductID", headerText: "$$(ProductID)", dataType: "number", width: "200px" },
-                        { key: "Name", headerText: "$$(Name)", dataType: "string", width: "250px" },
-                        { key: "ProductNumber", headerText: "$$(ProductNumber)", dataType: "number", width: "200px" },
-                        { key: "InStock", headerText: "$$(InStock)", dataType: "bool", width: "150px" },
-                        { key: "Quantity", headerText: "$$(Quantity)", dataType: "number", width: "150px" }
+                        { key: "ProductID", headerText: "Product ID", dataType: "number", width: "200px" },
+                        { key: "Name", headerText: "Product Name", dataType: "string", width: "250px" },
+                        { key: "ProductNumber", headerText: "Product Number", dataType: "number", width: "200px" },
+                        { key: "InStock", headerText: "In Stock", dataType: "bool", width: "150px" },
+                        { key: "Quantity", headerText: "Quantity", dataType: "number", width: "150px" }
                     ],
                     dataSource: data,
                     primaryKey: "ProductID",
