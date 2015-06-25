@@ -28,9 +28,9 @@ $.ig.loader({
                     width: "100%",
                     height: "200px",
                     columns: [
-                        { key: "ProductID", headerText: "$$(ProductID)", width: "100px", dataType: "number" },
-                        { key: "Name", headerText: "$$(Name)", width: "150px", dataType: "string" },
-                        { key: "ProductNumber", headerText: "$$(ProductNumber)", width: "200px", dataType: "number" }
+                        { key: "ProductID", headerText: "製品 ID", width: "100px", dataType: "number" },
+                        { key: "Name", headerText: "製品名", width: "150px", dataType: "string" },
+                        { key: "ProductNumber", headerText: "製品番号", width: "200px", dataType: "number" }
                     ],
                     dataSource: data,
                     primaryKey: "ProductID"
