@@ -64,7 +64,7 @@ $.ig.loader({
                         {
                             headerCellExported: function (e, args) {
                                 if (args.columnKey == "Quantity") {
-                                    args.xlRow.setCellValue(args.columnIndex, "$$(AvailableQuantity)");
+                                    args.xlRow.setCellValue(args.columnIndex, "利用可能な数量");
                                 }
                             },
                             cellExporting: function (e, args) {
@@ -84,7 +84,7 @@ $.ig.loader({
                             },
                             rowExported: function (e, args) {
                                 if (args.xlRow.index() == args.grid.igGrid("allRows").length - 1) {
-                                    $('<div style="font-size:20px;">$$(LastRowExported)</div>').insertBefore('#exportButton').delay(1000).fadeOut();
+                                    $('<div style="font-size:20px;">エクスポートが正常に完了しました。ダウンロードを開始しています。</div>').insertBefore('#exportButton').delay(1000).fadeOut();
                                 }
                             }
                         });
