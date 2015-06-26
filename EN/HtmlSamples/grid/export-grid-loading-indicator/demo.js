@@ -76,7 +76,7 @@ $.ig.loader({
                 exportingIndicator.css({
                     "width": $gridContainer.outerWidth(),
                     "height": $gridContainer.outerHeight()
-                }).html('<span class="exporting-text">$$(Exporting)</span>');
+                }).html('<span class="exporting-text">Exporting...</span>');
                 exportingIndicator.addClass("exporting-indicator");
 
                 $gridContainer.append(exportingIndicator);
