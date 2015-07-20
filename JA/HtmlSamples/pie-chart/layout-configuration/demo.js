@@ -59,8 +59,10 @@ $(function () {
                 selectionChanged: function (evt, ui) {
                     if ($.isArray(ui.items) && ui.items[0] != undefined) {
                         $("#chart1").igPieChart("option", "labelsPosition", ui.items[0].data.value);
+
                         $("#labelExtent").slider("option", "disabled", ui.items[0].data.value != "outsideEnd");
-                        $("#leaderLine").igCombo("option", "mode", ui.items[0].data.value != "outsideEnd" ? "readonly" : "editable");
+                        // Z.K 16/07/2015 Fixing Bug #201984 - Changing the value for Label Position is throwing an error
+                        $("#leaderLine").igCombo("option", "disabled", ui.items[0].data.value != "outsideEnd" ? true : false);
                     }
                 }
             });
